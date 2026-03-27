@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "build:wasm": "GOOS=js GOARCH=wasm go build -buildvcs=false -o public/compiler.wasm ./cmd/compiler",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",

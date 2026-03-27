@@ -1,0 +1,6 @@
+github.com/rs/xid v1.6.0 h1:fV591PaemRlL6JfRxGDEPl69wICngIQ3shQtzfy2gxU=
+github.com/rs/xid v1.6.0/go.mod h1:7XoLgs4eV+QndskICGsho+ADou8ySMSjJKDIan90Nz0=
+github.com/xjslang/djs v0.1.1 h1:ehDOUtvI91eJ2ZWN0B/gIamD85ItrvWePfIk9M+wQ3M=
+github.com/xjslang/djs v0.1.1/go.mod h1:Cz3Iax/f5xWfZ5GDM+cpuFKztKO3CtVeJCJV3bpAI+A=
+github.com/xjslang/xjs v0.8.0 h1:oTTYPeTgmRnnHADcldsXtWPH8RgP0baXRThE0wN1tB0=
+github.com/xjslang/xjs v0.8.0/go.mod h1:sCMCA7n2l9RRLOtvbPBlzMIQade2Zxq6vSqIFwcY6/8=
