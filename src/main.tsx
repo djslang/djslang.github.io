@@ -2,4 +2,10 @@ import { render } from 'preact'
 import './index.css'
 import App from './app.tsx'
 
-render(<App />, document.getElementById('app')!)
+window.wasmReady
+  .then(() => {
+    render(<App />, document.getElementById('app')!)
+  })
+  .catch((err) => {
+    console.error('Failed to load WASM:', err)
+  })
