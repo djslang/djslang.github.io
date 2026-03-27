@@ -1,2 +1,1 @@
-# djslang.github.io
-DJS Programming Language
+# DJS Language

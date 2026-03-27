@@ -1,0 +1,25 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "quoteProps": "consistent",
+  "tabWidth": 2,
+  "trailingComma": "none",
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "printWidth": 80,
+  "endOfLine": "lf",
+  "overrides": [
+    {
+      "files": ["*.css", "*.scss"],
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.test.tsx",
+      "options": {
+        "printWidth": 120
+      }
+    }
+  ]
+}
