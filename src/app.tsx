@@ -1,12 +1,13 @@
-import { useState } from 'preact/hooks'
+import { useEffect, useState } from 'preact/hooks'
 import * as prettier from 'prettier/standalone'
 import * as prettierPluginBabel from 'prettier/plugins/babel'
 import * as prettierPluginEstree from 'prettier/plugins/estree'
 
-const App = () => {
-  const [output, setOutput] = useState('')
-  const [sourceCode, setSourceCode] =
-    useState(`let sqlite = require('better-sqlite3')
+const examples = [
+  { title: 'Manual or pick an example:', code: '' },
+  {
+    title: 'Database',
+    code: `let sqlite = require('better-sqlite3')
 
 (function main() {
   let db = sqlite('mydata.db') or |err| {
@@ -19,10 +20,17 @@ const App = () => {
   let stmt = db.prepare('SELECT * FROM users WHERE active = ?')
   let users = stmt.all(1)
   console.log(\`Found \${users.length} active users\`)
-})()`)
+})()`
+  }
+]
+
+const App = () => {
+  const [selectedExample, setSelectedExample] = useState(1)
+  const [output, setOutput] = useState('')
+  const [input, setInput] = useState('')
 
   const handleCompile = async () => {
-    const { result } = window.goCompile(sourceCode)
+    const { result } = window.goCompile(input)
     const formatted = await prettier.format(result || '', {
       parser: 'babel',
       plugins: [prettierPluginBabel, prettierPluginEstree]
@@ -30,21 +38,52 @@ const App = () => {
     setOutput(formatted)
   }
 
+  useEffect(() => {
+    setInput(examples[selectedExample].code)
+    setOutput('')
+  }, [selectedExample])
+
   return (
-    <div class="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2 h-screen">
-      <div class="flex flex-col gap-2">
-        <textarea
-          value={sourceCode}
-          onInput={(e) => setSourceCode(e.currentTarget.value)}
-          class="textarea w-auto grow"
-          rows={16}
-        />
-        <button type="button" onClick={handleCompile} class="btn btn-primary">
-          Compile to JavaScript &mdash;&gt;
+    <div class="p-4 flex flex-col gap-2 min-h-screen sm:h-screen">
+      <div class="grid sm:grid-cols-2 gap-2">
+        <select
+          value={selectedExample}
+          onInput={(e) =>
+            setSelectedExample(parseInt(e.currentTarget.value, 10))
+          }
+          class="select w-full"
+        >
+          {examples.map((example, i) => (
+            <option key={i} value={i} selected={selectedExample === i}>
+              {example.title}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          onClick={handleCompile}
+          class="btn btn-primary hidden sm:flex"
+        >
+          ↓ Compile to JavaScript ↓
         </button>
       </div>
-      <div class="overflow-auto px-3 py-2 whitespace-pre text-sm text-base-content bg-base-200 border border-base-content/20 rounded-sm">
-        {output}
+      <div class="grow flex flex-col sm:grid sm:grid-cols-2 gap-2">
+        <textarea
+          value={input}
+          onInput={(e) => setInput(e.currentTarget.value)}
+          rows={16}
+          class="textarea w-full"
+        />
+        <button
+          type="button"
+          onClick={handleCompile}
+          class="btn btn-primary sm:hidden"
+        >
+          ↓ Compile to JavaScript ↓
+        </button>
+        <div class="grow overflow-auto px-3 py-2 whitespace-pre text-sm text-base-content bg-base-200 border border-base-content/20 rounded-sm">
+          {output}
+        </div>
       </div>
     </div>
   )
