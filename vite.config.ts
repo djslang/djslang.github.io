@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite'
 import tailwindcss from "@tailwindcss/vite";
 import preact from '@preact/preset-vite'
+import svgr from 'vite-plugin-svgr'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [tailwindcss(), preact()],
+  plugins: [tailwindcss(), svgr(), preact()],
 })
