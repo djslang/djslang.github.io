@@ -31,12 +31,12 @@ const App = () => {
   const [input, setInput] = useState('')
 
   const handleCompile = async () => {
-    const { result } = window.goCompile(input)
+    const { result, error } = window.goCompile(input)
     const formatted = await prettier.format(result || '', {
       parser: 'babel',
       plugins: [prettierPluginBabel, prettierPluginEstree]
     })
-    setOutput(formatted)
+    setOutput(error ?? formatted)
   }
 
   useEffect(() => {
