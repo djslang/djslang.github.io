@@ -15,10 +15,15 @@
         WebAssembly.instantiateStreaming(
           fetch('/compiler.wasm'),
           go.importObject
-        ).then((result) => {
-          go.run(result.instance)
-          resolve()
-        })
+        )
+          .then((result) => {
+            go.run(result.instance)
+            resolve()
+          })
+          .catch((err) => {
+            console.log('The compiler could not be loaded.')
+            throw err
+          })
       })
     </script>
     <script type="module" src="/src/main.tsx"></script>
