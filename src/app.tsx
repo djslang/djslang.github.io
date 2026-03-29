@@ -5,9 +5,23 @@ import * as prettierPluginEstree from 'prettier/plugins/estree'
 import GitHubImage from './images/github.svg?react'
 
 const examples = [
-  { title: 'Manual or pick an example:', code: '' },
   {
-    title: 'Database',
+    title: 'Manual or pick an example:',
+    code: `// Not supported features:
+//
+// - Classes: Use functions and closures
+// - const/var: Use \`let\`
+// - Arrow functions: Use \`function() {}\`
+// - try/catch/finally: Use \`or/defer\`
+// - import/export: Use \`require()\`
+// - Others: multiline comments, spread operator and rest parameters
+
+(function() {
+    console.log('Hello, World!')
+})`
+  },
+  {
+    title: 'Basic example',
     code: `let sqlite = require('better-sqlite3')
 
 (function main() {
@@ -21,6 +35,51 @@ const examples = [
   let stmt = db.prepare('SELECT * FROM users WHERE active = ?')
   let users = stmt.all(1)
   console.log(\`Found \${users.length} active users\`)
+})()`
+  },
+  {
+    title: 'Combine or/defer and async/await',
+    code: `function sleep(ms) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, ms)
+  })
+}
+
+async function processOrder(orderId) {
+  let lock = await acquireLock('orders') or |err| {
+    console.error('Cannot acquire lock', err)
+    return
+  }
+  defer lock.release()
+
+  console.log(\`Processing order \${orderId}\`)
+  await sleep(250)
+  console.log(\`Order \${orderId} completed\`)
+}
+
+(async function main() {
+  await processOrder(42)
+})()`
+  },
+  {
+    title: 'Defer a block',
+    code: `let fs = require('fs')
+
+(function main() {
+  let file = fs.openSync('report.txt', 'w') or |err| {
+    console.error('Cannot open file', err)
+    return
+  }
+
+  defer {
+    console.log('Flushing buffered data')
+    fs.fsyncSync(file)
+    fs.closeSync(file)
+    console.log('File closed')
+  }
+
+  fs.writeSync(file, 'Hello from DJS\\n')
+  console.log('File written')
 })()`
   }
 ]
