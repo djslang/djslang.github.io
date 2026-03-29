@@ -51,6 +51,7 @@ const App = () => {
       </header>
       <div class="grid sm:grid-cols-2 gap-2">
         <select
+          id="choose-example"
           value={selectedExample}
           onInput={(e) =>
             setSelectedExample(parseInt(e.currentTarget.value, 10))
@@ -73,6 +74,7 @@ const App = () => {
       </div>
       <div class="grow flex flex-col sm:grid sm:grid-cols-2 gap-2">
         <textarea
+          name="input"
           value={input}
           onInput={(e) => setInput(e.currentTarget.value)}
           rows={16}
