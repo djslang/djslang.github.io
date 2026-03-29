@@ -45,17 +45,16 @@ const App = () => {
   }, [selectedExample])
 
   return (
-    <div class="p-4 flex flex-col gap-2 min-h-screen sm:h-screen">
+    <div class="container mx-auto p-4 flex flex-col gap-2 min-h-screen sm:h-screen">
       <header class="mb-2 mx-1 flex items-center justify-between">
         <h1 class="text-2xl font-semibold">DJS Playground (Beta)</h1>
         <a
           href="https://github.com/xjslang/djs"
           target="_blank"
           rel="noreferrer"
-          class="flex items-center gap-0.5 font-semibold"
+          title="GitHub repository"
         >
-          <GitHubImage class="size-6" />
-          <span>GitHub</span>
+          <GitHubImage className="size-10" />
         </a>
       </header>
       <div class="grid sm:grid-cols-2 gap-2">
