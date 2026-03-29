@@ -45,6 +45,10 @@ const App = () => {
 
   return (
     <div class="p-4 flex flex-col gap-2 min-h-screen sm:h-screen">
+      <header class="mb-2 mx-1 flex items-center justify-between">
+        <h1 class="text-2xl font-semibold">DJS Playground (Beta)</h1>
+        <a href="https://github.com/xjslang/djs">Github</a>
+      </header>
       <div class="grid sm:grid-cols-2 gap-2">
         <select
           value={selectedExample}
